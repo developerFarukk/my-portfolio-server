@@ -10,7 +10,7 @@ const userSchema = new Schema<TUser>(
     {
         id: {
             type: String,
-            required: [true, 'user id is required'],
+            required: false,
             unique: true,
         },
         name: {
@@ -32,7 +32,7 @@ const userSchema = new Schema<TUser>(
         },
         address: {
             type: String,
-            default: '',
+            required: [true, 'user address is requered'],
             trim: true
         },
         password: {

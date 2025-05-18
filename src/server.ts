@@ -4,6 +4,7 @@ import { Server } from 'http';
 import app from './app'
 import config from './app/config';
 import mongoose from 'mongoose';
+import seedAdmin from './app/DB';
 
 
 let server: Server | null = null;
@@ -13,6 +14,9 @@ let server: Server | null = null;
 async function connectToDatabase() {
     try {
         await mongoose.connect(config.database_url as string);
+
+        seedAdmin();
+
         console.log('🛢 Database connected successfully');
     } catch (err) {
         console.error('Failed to connect to database:', err);
