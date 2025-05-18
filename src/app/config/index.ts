@@ -19,5 +19,6 @@ export default {
     admin_email: process.env.ADMIN_EMAIL,
     admin_phone_number: process.env.ADMIN_PHONE_NUMBER,
     admin_address: process.env.ADMIN_ADDRESS,
+    admin_image: process.env.ADMIN_IMAGE,
     admin_password: process.env.ADMIN_PASSWORD,
 }

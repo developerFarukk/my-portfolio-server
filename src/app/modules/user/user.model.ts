@@ -35,6 +35,11 @@ const userSchema = new Schema<TUser>(
             required: [true, 'user address is requered'],
             trim: true
         },
+        image: {
+            type: String,
+            default: "",
+            trim: true
+        },
         password: {
             type: String,
             required: [true, 'Password id is required'],

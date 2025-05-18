@@ -8,6 +8,7 @@ export interface TUser {
     email: string;
     phoneNumber: string;
     address: string;
+    image: string;
     password: string;
     role: 'admin';
 };

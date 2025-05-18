@@ -11,6 +11,7 @@ const superUser = {
     email: config.admin_email,
     phoneNumber: config.admin_phone_number,
     address: config.admin_address,
+    image: config.admin_image,
     password: config.admin_password,
     role: USER_ROLE.admin,
 };
