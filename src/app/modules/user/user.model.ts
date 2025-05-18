@@ -2,8 +2,8 @@
 
 import bcrypt from 'bcrypt';
 import { Schema, model } from 'mongoose';
-import { TUser, UserModel } from './user.interface';
 import config from '../../config';
+import { TUser, UserModel } from './user.interface';
 
 
 const userSchema = new Schema<TUser>(
@@ -11,42 +11,44 @@ const userSchema = new Schema<TUser>(
         id: {
             type: String,
             required: [true, 'user id is required'],
-            unique: true
+            unique: true,
+        },
+        name: {
+            type: String,
+            required: [true, 'User name is requered'],
+            trim: true,
+            maxlength: [100, 'Name can not be more than 20 characters'],
         },
         email: {
             type: String,
             required: [true, 'user Email is required'],
             unique: true,
+            trim: true
+        },
+        phoneNumber: {
+            type: String,
+            required: [true, 'user phoneNumber is requered'],
+            trim: true
+        },
+        address: {
+            type: String,
+            default: '',
+            trim: true
         },
         password: {
             type: String,
             required: [true, 'Password id is required'],
             select: 0
         },
-        needsPasswordChange: {
-            type: Boolean,
-            default: true,
-        },
-        passwordChangedAt: {
-            type: Date,
-        },
         role: {
             type: String,
-            enum: ['student', 'faculty', 'admin', 'superAdmin'],
+            enum: ['admin'],
         },
-        status: {
-            type: String,
-            enum: ['in-progress', 'blocked'],
-            default: 'in-progress',
-        },
-        isDeleted: {
-            type: Boolean,
-            default: false,
-        },
+
     },
     {
         timestamps: true,
-        // versionKey: false
+        versionKey: false
     },
 );
 
@@ -68,7 +70,7 @@ userSchema.post('save', function (doc, next) {
 });
 
 // Existing ID
-userSchema.statics.isUserExistsByCustomId = async function (id: string) {
+userSchema.statics.isUserExistId = async function (id: string) {
     return await User.findOne({ id }).select('+password');
 };
 
