@@ -36,4 +36,4 @@ const skillSchema = new Schema<TSkills>(
 
 
 
-export const Blogs = model<TSkills>('Skills', skillSchema);
+export const Skills = model<TSkills>('Skills', skillSchema);
