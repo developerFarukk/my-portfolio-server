@@ -20,7 +20,7 @@ const createSkillsIntoDB = async (payload: TSkills) => {
 const getAllSkillFromDB = async () => {
 
     // Execute the query
-    const result = Skills.find()
+    const result = Skills.find().sort({ createdAt: -1 })
 
     return result;
 };
@@ -29,14 +29,14 @@ const getAllSkillFromDB = async () => {
 // get Soft Skils
 const getSoftSkillFromDB = async () => {
 
-    const result = await Skills.find({ skillCategory: 'Soft' });
+    const result = await Skills.find({ skillCategory: 'Soft' }).sort({ createdAt: -1 });
     return result;
 };
 
 // get Technical Skils
 const getTechnicalSkillFromDB = async () => {
 
-    const result = await Skills.find({ skillCategory: 'Technical' });
+    const result = await Skills.find({ skillCategory: 'Technical' }).sort({ createdAt: -1 });
     return result;
 };
 

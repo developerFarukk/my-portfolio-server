@@ -22,7 +22,7 @@ const createProjectIntoDB = async (payload: TProject) => {
 // Get all Project
 const getAllProjectFromDB = async () => {
 
-    const blog = Project.find()
+    const blog = Project.find().sort({ createdAt: -1 })
 
     return blog;
 };
