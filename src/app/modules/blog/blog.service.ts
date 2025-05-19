@@ -19,7 +19,7 @@ const createBlogIntoDB = async (payload: Tblog) => {
 const getAllBlogFromDB = async () => {
 
     // Execute the query
-    const blog = Blogs.find()
+    const blog = Blogs.find().sort({ createdAt: -1 })
 
 
     return blog;
