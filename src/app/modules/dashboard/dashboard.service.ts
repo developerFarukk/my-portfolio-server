@@ -3,8 +3,6 @@ import { Project } from "../projects/project.model";
 import { Skills } from "../skills/skills.model";
 
 
-
-
 const getAllDashboardDataFromDB = async () => {
 
     // Execute the query
