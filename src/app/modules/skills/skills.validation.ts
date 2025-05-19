@@ -26,7 +26,7 @@ const updateSkillValidation = z.object({
 });
 
 
-export const BlogValidation = {
+export const SkillsValidation = {
     createSkillValidation,
     updateSkillValidation
 };

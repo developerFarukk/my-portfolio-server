@@ -108,7 +108,7 @@ const deleteSkill = catchAsync(async (req, res) => {
 
 
 
-export const BlogsControllers = {
+export const SkillsControllers = {
     createSkill,
     getAllSkills,
     getSoftSkills,
