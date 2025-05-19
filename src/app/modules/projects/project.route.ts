@@ -5,6 +5,8 @@ import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { ProjectValidation } from './project.validation';
 import { ProjectControllers } from './project.controller';
+import { USER_ROLE } from '../user/user.constant';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -12,6 +14,7 @@ const router = express.Router();
 // Creat Project Data Route
 router.post(
     '/create-project',
+    auth(USER_ROLE.admin),
     validateRequest(ProjectValidation.createProjectValidation),
     ProjectControllers.createProject
 );
@@ -29,6 +32,7 @@ router.get("/:id", ProjectControllers.getSingleProject)
 // Update Project Route
 router.patch(
     '/:id',
+    auth(USER_ROLE.admin),
     validateRequest(ProjectValidation.updateProjectValidation),
     ProjectControllers.updateProject,
 );
@@ -36,7 +40,9 @@ router.patch(
 
 // Delete Project Route
 router.delete(
-    '/:id', ProjectControllers.deleteProject,
+    '/:id',
+    auth(USER_ROLE.admin),
+    ProjectControllers.deleteProject,
 );
 
 
