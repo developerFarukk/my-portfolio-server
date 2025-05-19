@@ -9,9 +9,6 @@ import httpStatus from 'http-status';
 // Create Project
 const createProject = catchAsync(async (req, res) => {
 
-    console.log(req.user);
-    
-
     const result = await projectService.createProjectIntoDB(req.body);
 
     sendResponse(res, {
