@@ -30,18 +30,19 @@ const loginAdmin = catchAsync(async (req, res) => {
 });
 
 // Password Chenge user
-// const changePassword = catchAsync(async (req, res) => {
-//     const { ...passwordData } = req.body;
-//     // console.log(req.user, req.body);
+const changePassword = catchAsync(async (req, res) => {
 
-//     const result = await AuthServices.changePassword(req.user, passwordData);
-//     sendResponse(res, {
-//         statusCode: httpStatus.OK,
-//         success: true,
-//         message: 'Password is updated succesfully!',
-//         data: result,
-//     });
-// });
+    const { ...passwordData } = req.body;
+    // console.log(req.user, req.body);
+
+    const result = await AuthServices.changePasswordIntoDB(req.user, passwordData);
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: 'Password is updated succesfully!',
+        data: result,
+    });
+});
 
 // Refress Token
 const refreshToken = catchAsync(async (req, res) => {
@@ -61,6 +62,6 @@ const refreshToken = catchAsync(async (req, res) => {
 
 export const AuthControllers = {
     loginAdmin,
-    // changePassword,
+    changePassword,
     refreshToken,
 };
