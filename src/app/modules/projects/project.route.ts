@@ -5,8 +5,8 @@ import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { ProjectValidation } from './project.validation';
 import { ProjectControllers } from './project.controller';
-// import { USER_ROLE } from '../user/user.constant';
-// import auth from '../../middlewares/auth';
+import { USER_ROLE } from '../user/user.constant';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const router = express.Router();
 // Creat Project Data Route
 router.post(
     '/create-project',
-    // auth( USER_ROLE.admin),
+    auth( USER_ROLE.admin),
     validateRequest(ProjectValidation.createProjectValidation),
     ProjectControllers.createProject
 );
