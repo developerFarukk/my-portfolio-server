@@ -22,6 +22,30 @@ const projectSchema = new Schema<TProject>(
         image: { type: String, required: false, default: '' },
         githubClient: { type: String, required: false },
         githubServer: { type: String, required: false },
+        techStack: {
+            type: [String],
+            default: []
+        },
+        features: {
+            type: [String],
+            default: []
+        },
+        category: {
+            type: String,
+            default: ""
+        },
+        videoDemo: {
+            type: String,
+            default: ""
+        },
+        isTeamProject: {
+            type: Boolean,
+            default: false
+        },
+        contributors: {
+            type: [String],
+            default: []
+        }
     },
     {
         timestamps: true,

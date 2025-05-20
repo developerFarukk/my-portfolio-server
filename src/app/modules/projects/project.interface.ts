@@ -8,4 +8,12 @@ export type TProject = {
     image?: string;
     githubClient?: string
     githubServer?: string
+    techStack?: string[];
+    features?: string[];
+    createdAt?: string;
+    updatedAt?: string;
+    category?: string;
+    isTeamProject?: boolean;
+    contributors?: string[];
+    videoDemo?: string;
 };
