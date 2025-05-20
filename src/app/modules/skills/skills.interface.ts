@@ -1,6 +1,6 @@
 
 
-export type TSkillCategory = 'Technical' | 'Soft' ;
+export type TSkillCategory = 'Technical' | 'Soft' | 'Front-end' | 'Backend' | 'UI-Tools' ;
 
 export type TSkills = {
     _id?: string,
@@ -14,7 +14,10 @@ export type TSkills = {
 export const SkillCategory = {
     Technical: 'Technical',
     Soft: 'Soft',
+    Frontend: 'Front-end',
+    Backend: "Backend",
+    UiTools: "UI-Tools"
 } as const;
 
 
-export const SkillCategorys: TSkillCategory[] = ['Technical', 'Soft'];
+export const SkillCategorys: TSkillCategory[] = ['Technical', 'Soft', 'Front-end' , 'Backend' , 'UI-Tools'];
