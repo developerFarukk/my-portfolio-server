@@ -10,7 +10,7 @@ const createSkillValidation = z.object({
         }),
         description: z.string().optional(),
         image: z.string().optional(),
-        skillCategory: z.enum(['Technical', 'Soft'])
+        skillCategory: z.enum(['Technical', 'Soft', 'Front-end' , 'Backend' , 'UI-Tools'])
     }),
 });
 
@@ -21,7 +21,7 @@ const updateSkillValidation = z.object({
         title: z.string().optional(),
         description: z.string().optional(),
         image: z.string().optional(),
-        skillCategory: z.enum(['Technical', 'Soft']).optional()
+        skillCategory: z.enum(['Technical', 'Soft', 'Front-end' , 'Backend' , 'UI-Tools']).optional()
     }),
 });
 

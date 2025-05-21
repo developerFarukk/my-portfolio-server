@@ -14,6 +14,7 @@ const superUser = {
     image: config.admin_image,
     password: config.admin_password,
     role: USER_ROLE.admin,
+
 };
 
 const seedAdmin = async () => {

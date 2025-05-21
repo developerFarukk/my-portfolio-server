@@ -15,7 +15,7 @@ const loginAdmin = catchAsync(async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
         secure: config.node_env === 'production',
-        httpOnly: true,
+        // httpOnly: true,
     });
 
     sendResponse(res, {
