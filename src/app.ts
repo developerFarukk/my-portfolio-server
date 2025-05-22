@@ -12,25 +12,26 @@ import { StatusCodes } from "http-status-codes";
 
 
 const app: Application = express();
+app.use(cors(
+    // {
+    //     origin: [
+    //         'https://my-portfolio-dashboard-eta.vercel.app',
+    //         'http://localhost:3000',
+    //         'http://localhost:3001',
+    //         'https://developerfaruk.netlify.app'
+    //     ],
+    //     credentials: true
+    // }
+));
+app.use(cookieParser());
 
 // middleware
 app.use(express.json())
-app.use(cookieParser());
-app.use(cors(
-    {
-        origin: [
-            'http://localhost:3000',
-            'http://localhost:3001',
-            'https://my-portfolio-dashboard-eta.vercel.app',
-            'https://developerfaruk.netlify.app'
-        ],
-        credentials: true
-    }
-));
+app.use(express.urlencoded({ extended: true }));
+
 // app.use(cors(
 //     { origin: 'https://my-portfolio-dashboard-eta.vercel.app', credentials: true }
 // ));
-app.use(express.urlencoded({ extended: true }));
 
 
 // application routes
