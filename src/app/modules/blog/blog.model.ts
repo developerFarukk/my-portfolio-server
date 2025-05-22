@@ -16,7 +16,7 @@ const blogSchema = new Schema<Tblog>(
             type: String,
             required: [true, "Content is required"]
         },
-        image: { type: String, required: false },
+        image: { type: String, default: "" },
         category: { type: String, required: false },
     },
     {
