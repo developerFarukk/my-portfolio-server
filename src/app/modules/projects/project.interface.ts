@@ -20,6 +20,7 @@ export type TProjects = {
   _id?: string
   pName: string
   pTitle: string
+  pLogoLink?: string
   pDescription?: string
   pLiveClientLink?: string
   pLiveServerLink?: string

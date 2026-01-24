@@ -90,6 +90,8 @@ const createProjectValidation = z.object({
 
     pDescription: z.string().optional(),
 
+    pLogoLink: z.string().url().optional(),
+
     pLiveClientLink: z.string().url().optional(),
     pLiveServerLink: z.string().url().optional(),
 

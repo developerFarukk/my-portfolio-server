@@ -132,6 +132,12 @@ const projectSchema = new Schema<TProjects>(
       trim: true,
     },
 
+    pLogoLink: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+
     pLiveClientLink: {
       type: String,
       trim: true,
