@@ -20,19 +20,19 @@ export type TProjects = {
   _id?: string
   pName: string
   pTitle: string
-  pDescription: string
-  pLiveClientLink: string
-  pLiveServerLink: string
-  pClientRepoLink: string
-  pServerRepoLink: string
-  pOverviewVideoLink: string[]
-  pImageLink: string[]
+  pDescription?: string
+  pLiveClientLink?: string
+  pLiveServerLink?: string
+  pClientRepoLink?: string
+  pServerRepoLink?: string
+  pOverviewVideoLink?: string[]
+  pImageLink?: string[]
   pTechStack?: string[]
-  pCategory: ProjectCategory
-  pVisibility: ProjectVisibility
-  pPricingType: ProjectPricingType
+  pCategory?: ProjectCategory
+  pVisibility?: ProjectVisibility
+  pPricingType?: ProjectPricingType
   //   pType: WebsiteType
-  pType: string
+  pType?: string
   pFeatures?: TProjectFeature[]
   pContributors?: TPContributors[]
   pReviewAvgRating?: string
