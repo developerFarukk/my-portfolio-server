@@ -1,88 +1,69 @@
-
-
-import AppError from "../../errors/AppError";
-import { TProject } from "./project.interface";
-import { Project } from "./project.model";
-import httpStatus from 'http-status';
-
-
+import AppError from '../../errors/AppError'
+import { TProject } from './project.interface'
+import { Project } from './project.model'
+import httpStatus from 'http-status'
 
 // Create Project
-
 const createProjectIntoDB = async (payload: TProject) => {
+  const newPayload = { ...payload }
 
-    const newPayload = { ...payload };
+  const result = await Project.create(newPayload)
 
-    const result = await Project.create(newPayload);
-
-    return result;
-};
-
+  return result
+}
 
 // Get all Project
 const getAllProjectFromDB = async () => {
+  const blog = Project.find().sort({ createdAt: -1 })
 
-    const blog = Project.find().sort({ createdAt: -1 })
-
-    return blog;
-};
-
+  return blog
+}
 
 // Get Single Project
 const getSingleProjectFromDB = async (id: string) => {
+  const project = await Project.findById({ _id: id })
 
-    const project = await Project.findById({ _id: id })
+  if (!project) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !')
+  }
 
-    if (!project) {
-        throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !');
-    }
+  const result = await Project.findById(id)
 
-    const result = await Project.findById(id)
-
-    return result;
-};
-
+  return result
+}
 
 // Update Project
 const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
+  const project = await Project.findById({ _id: id })
 
+  if (!project) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !')
+  }
 
-    const project = await Project.findById({ _id: id })
+  const result = await Project.findOneAndUpdate({ _id: id }, payload, {
+    new: true,
+  })
 
-    if (!project) {
-        throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !');
-    }
-
-
-    const result = await Project.findOneAndUpdate({ _id: id }, payload,
-        {
-            new: true,
-        },
-    )
-
-    return result;
-};
-
+  return result
+}
 
 // Delete Project
 const deleteProjectFromDB = async (id: string) => {
+  const project = await Project.findById(id)
 
-    const project = await Project.findById(id);
+  // Check Project Exist
+  if (!project) {
+    throw new Error('This project not found !')
+  }
 
-    // Check Project Exist
-    if (!project) {
-        throw new Error('This project not found !')
-    }
-
-    const result = Project.findByIdAndDelete(id)
-    return result;
-};
-
+  const result = Project.findByIdAndDelete(id)
+  return result
+}
 
 export const projectService = {
-    createProjectIntoDB,
-    getAllProjectFromDB,
-    updateProjectIntoDB,
-    deleteProjectFromDB,
-    getSingleProjectFromDB
-};
+  createProjectIntoDB,
+  getAllProjectFromDB,
+  updateProjectIntoDB,
+  deleteProjectFromDB,
+  getSingleProjectFromDB,
+}

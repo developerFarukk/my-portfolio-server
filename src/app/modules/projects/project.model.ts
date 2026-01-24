@@ -65,8 +65,8 @@ import {
 // Feature description with title
 const projectDescriptionTitleSchema = new Schema(
   {
-    pDescriptionTitle: { type: String },
-    pDescriptionPoints: { type: String },
+    pDescriptionTitle: { type: String, trim: true },
+    pDescriptionPoints: { type: String, trim: true },
   },
   { _id: false }
 )
@@ -74,9 +74,9 @@ const projectDescriptionTitleSchema = new Schema(
 // Feature schema
 const projectFeatureSchema = new Schema(
   {
-    pFeatureTitle: { type: String },
+    pFeatureTitle: { type: String, trim: true },
     pFeatureDescriptions: {
-      type: [String],
+      type: [{ type: String, trim: true }],
       default: [],
     },
     pFeaturesDescriptionWithTitle: {
@@ -90,11 +90,11 @@ const projectFeatureSchema = new Schema(
 // Contributor schema
 const contributorSchema = new Schema(
   {
-    name: { type: String },
-    role: { type: String },
-    profileLink: { type: String },
-    portfolioLink: { type: String },
-    gitHubLink: { type: String },
+    name: { type: String, trim: true },
+    role: { type: String, trim: true },
+    profileLink: { type: String, trim: true },
+    portfolioLink: { type: String, trim: true },
+    gitHubLink: { type: String, trim: true },
   },
   { _id: false }
 )
@@ -102,10 +102,10 @@ const contributorSchema = new Schema(
 // Review schema
 const reviewSchema = new Schema(
   {
-    reviewerName: { type: String },
-    reating: { type: String },
-    reviewText: { type: String },
-    reviewDate: { type: String },
+    reviewerName: { type: String, trim: true },
+    reating: { type: String, trim: true },
+    reviewText: { type: String, trim: true },
+    reviewDate: { type: String, trim: true },
   },
   { _id: false }
 )
@@ -117,67 +117,79 @@ const projectSchema = new Schema<TProjects>(
     pName: {
       type: String,
       required: true,
+      unique: true,
+      trim: true,
     },
 
     pTitle: {
       type: String,
       required: true,
+      trim: true,
     },
 
     pDescription: {
       type: String,
+      trim: true,
     },
 
     pLiveClientLink: {
       type: String,
+      trim: true,
     },
 
     pLiveServerLink: {
       type: String,
+      trim: true,
     },
 
     pClientRepoLink: {
       type: String,
+      trim: true,
     },
 
     pServerRepoLink: {
       type: String,
+      trim: true,
     },
 
     pOverviewVideoLink: {
-      type: [String],
+      type: [{ type: String, trim: true }],
       default: [],
     },
 
     pImageLink: {
-      type: [String],
+      type: [{ type: String, trim: true }],
       default: [],
     },
 
     pTechStack: {
-      type: [String],
+      type: [{ type: String, trim: true }],
       default: [],
     },
 
     pCategory: {
       type: String,
       enum: Object.values(ProjectCategory),
+      trim: true,
     },
 
     pVisibility: {
       type: String,
       enum: Object.values(ProjectVisibility),
       default: ProjectVisibility.PUBLIC,
+      trim: true,
     },
 
     pPricingType: {
       type: String,
       enum: Object.values(ProjectPricingType),
       default: ProjectPricingType.FREE,
+      trim: true,
     },
 
     pType: {
       type: String,
+      trim: true,
     },
 
     pFeatures: {
@@ -192,6 +204,7 @@ const projectSchema = new Schema<TProjects>(
 
     pReviewAvgRating: {
       type: String,
+      trim: true,
     },
 
     pReviews: {
