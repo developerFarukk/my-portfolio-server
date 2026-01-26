@@ -1,11 +1,22 @@
 import AppError from '../../errors/AppError'
-import { TProject } from './project.interface'
+import { TProject, TProjects } from './project.interface'
 import { Project } from './project.model'
 import httpStatus from 'http-status'
 
 // Create Project
-const createProjectIntoDB = async (payload: TProject) => {
+const createProjectIntoDB = async (payload: TProjects) => {
   const newPayload = { ...payload }
+
+  const existingProject = await Project.findOne({
+    pName: newPayload?.pName,
+  })
+
+  if (existingProject) {
+    throw new AppError(
+      httpStatus.NOT_ACCEPTABLE,
+      'Project name already exists!'
+    )
+  }
 
   const result = await Project.create(newPayload)
 
