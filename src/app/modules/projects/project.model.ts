@@ -100,15 +100,15 @@ const contributorSchema = new Schema(
 )
 
 // Review schema
-const reviewSchema = new Schema(
-  {
-    reviewerName: { type: String, trim: true },
-    reating: { type: String, trim: true },
-    reviewText: { type: String, trim: true },
-    reviewDate: { type: String, trim: true },
-  },
-  { _id: false }
-)
+// const reviewSchema = new Schema(
+//   {
+//     reviewerName: { type: String, trim: true },
+//     reating: { type: String, trim: true },
+//     reviewText: { type: String, trim: true },
+//     reviewDate: { type: String, trim: true },
+//   },
+//   { _id: false }
+// )
 
 /* ---------- Main Project Schema ---------- */
 
@@ -208,15 +208,6 @@ const projectSchema = new Schema<TProjects>(
       default: [],
     },
 
-    pReviewAvgRating: {
-      type: String,
-      trim: true,
-    },
-
-    pReviews: {
-      type: [reviewSchema],
-      default: [],
-    },
   },
   {
     timestamps: true,

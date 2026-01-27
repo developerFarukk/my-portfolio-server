@@ -69,12 +69,12 @@ const contributorSchema = z.object({
 })
 
 // Review validation
-const reviewSchema = z.object({
-  reviewerName: z.string().optional(),
-  reating: z.string().optional(),
-  reviewText: z.string().optional(),
-  reviewDate: z.string().optional(),
-})
+// const reviewSchema = z.object({
+//   reviewerName: z.string().optional(),
+//   reating: z.string().optional(),
+//   reviewText: z.string().optional(),
+//   reviewDate: z.string().optional(),
+// })
 
 /* ---------- Create Project Validation ---------- */
 
@@ -115,9 +115,9 @@ const createProjectValidation = z.object({
 
     pContributors: z.array(contributorSchema).optional(),
 
-    pReviewAvgRating: z.string().optional(),
+    // pReviewAvgRating: z.string().optional(),
 
-    pReviews: z.array(reviewSchema).optional(),
+    // pReviews: z.array(reviewSchema).optional(),
   }),
 })
 
@@ -149,8 +149,8 @@ const updateProjectValidation = z.object({
     pFeatures: z.array(projectFeatureSchema).optional(),
     pContributors: z.array(contributorSchema).optional(),
 
-    pReviewAvgRating: z.string().optional(),
-    pReviews: z.array(reviewSchema).optional(),
+    // pReviewAvgRating: z.string().optional(),
+    // pReviews: z.array(reviewSchema).optional(),
   }),
 })
 
