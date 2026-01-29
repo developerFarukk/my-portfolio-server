@@ -1,39 +1,38 @@
-
-
-import { model, Schema } from "mongoose";
-import { SkillCategorys, TSkills } from "./skills.interface";
-
+import { model, Schema } from 'mongoose'
+import { SkillCategory, TSkills } from './skills.interface'
 
 const skillSchema = new Schema<TSkills>(
-    {
-        title: {
-            type: String,
-            required: [true, "Title is required"]
-        },
-        description: {
-            type: String,
-            default: ""
-        },
-        image: {
-            type: String,
-            default: ''
-        },
-        skillCategory: {
-            type: String,
-            enum: {
-                values: SkillCategorys,
-                message: '{VALUE} is not a valid skill category',
-            },
-            required: [true, 'Skill category is required'],
-        },
+  {
+    name: {
+      type: String,
+      required: [true, 'Skill name is required'],
+      trim: true,
     },
-    {
-        timestamps: true,
-        versionKey: false
+    title: {
+      type: String,
+      default: '',
+      trim: true,
     },
-);
+    description: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+    image: {
+      type: String,
+      default: '',
+    },
+    skillCategory: {
+      type: String,
+      //   enum: Object.values(SkillCategory),
+      enum: [...Object.values(SkillCategory), ''],
+      default: '',
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
 
-
-
-
-export const Skills = model<TSkills>('Skills', skillSchema);
+export const Skills = model<TSkills>('Skills', skillSchema)
