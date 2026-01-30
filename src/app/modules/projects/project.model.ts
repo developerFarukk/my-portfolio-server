@@ -207,7 +207,10 @@ const projectSchema = new Schema<TProjects>(
       type: [contributorSchema],
       default: [],
     },
-
+    pPinned: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

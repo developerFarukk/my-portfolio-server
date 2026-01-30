@@ -23,11 +23,15 @@ const createSkillValidation = z.object({
       required_error: 'Skill name is required',
     }),
 
-    title: z.string().optional(),
+    title: z.string().max(500, "Description is too long").optional(),
 
-    description: z.string().optional(),
+    description: z.string().max(1000, "Description is too long").optional(),
 
-    image: z.string().url().optional(),
+    image: z
+      .string()
+      .url('Please enter a valid URL')
+      .optional()
+      .or(z.literal('')),
 
     skillCategory: skillCategorySchema.optional(),
   }),

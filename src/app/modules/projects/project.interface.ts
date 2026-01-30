@@ -16,6 +16,7 @@ export type TProject = {
   videoDemo?: string
 }
 
+// Main Interface of Projects
 export type TProjects = {
   _id?: string
   pName: string
@@ -36,6 +37,7 @@ export type TProjects = {
   pType?: string
   pFeatures?: TProjectFeature[]
   pContributors?: TPContributors[]
+  pPinned: boolean
   createdAt?: string
   updatedAt?: string
 }
