@@ -218,4 +218,10 @@ const projectSchema = new Schema<TProjects>(
   }
 )
 
+projectSchema.index({
+  pPinned: -1,
+  updatedAt: -1,
+  createdAt: -1,
+})
+
 export const Project = model<TProjects>('Project', projectSchema)

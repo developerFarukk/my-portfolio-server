@@ -25,9 +25,21 @@ const createProjectIntoDB = async (payload: TProjects) => {
 
 // Get all Project
 const getAllProjectFromDB = async () => {
-  const blog = Project.find().sort({ createdAt: -1 })
+  const projects = await Project.find().sort({
+    pPinned: -1,
+    updatedAt: -1,
+    createdAt: -1,
+  })
 
-  return blog
+  const totalProject = projects.length
+  console.log(totalProject)
+
+  // return projects
+
+  return {
+    TotalProject: totalProject,
+    projects,
+  }
 }
 
 // Get Single Project
