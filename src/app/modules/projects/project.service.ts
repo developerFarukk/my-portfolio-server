@@ -1,4 +1,6 @@
+import QueryBuilder from '../../builder/QueryBuilder'
 import AppError from '../../errors/AppError'
+import { ProjectSearchableFields } from './project.constant'
 import { TProject, TProjects } from './project.interface'
 import { Project } from './project.model'
 import httpStatus from 'http-status'
@@ -24,21 +26,41 @@ const createProjectIntoDB = async (payload: TProjects) => {
 }
 
 // Get all Project
-const getAllProjectFromDB = async () => {
-  const projects = await Project.find().sort({
-    pPinned: -1,
-    updatedAt: -1,
-    createdAt: -1,
-  })
+const getAllProjectFromDB = async (query: Record<string, unknown>) => {
+  // const projects = await Project.find().sort({
+  //   pPinned: -1,
+  //   updatedAt: -1,
+  //   createdAt: -1,
+  // })
 
-  const totalProject = projects.length
-  console.log(totalProject)
+  // const totalProject = projects.length
+  // console.log(totalProject)
 
   // return projects
 
+  const projectQuery = new QueryBuilder(Project.find(), query)
+    .search(ProjectSearchableFields)
+    .filter()
+    // .sort()
+    .sort({
+      pPinned: -1,
+      updatedAt: -1,
+      createdAt: -1,
+    })
+    .paginate()
+    .fields()
+
+  const meta = await projectQuery.countTotal()
+  const result = await projectQuery.modelQuery
+
+  // return {
+  //   TotalProject: totalProject,
+  //   projects,
+  // }
+
   return {
-    TotalProject: totalProject,
-    projects,
+    meta,
+    result,
   }
 }
 
