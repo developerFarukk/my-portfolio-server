@@ -26,12 +26,17 @@ const skillSchema = new Schema<TSkills>(
       type: Boolean,
       default: false,
     },
+    // skillCategory: {
+    //   type: String,
+    //   //   enum: Object.values(SkillCategory),
+    //   enum: [...Object.values(SkillCategory), ''],
+    //   default: '',
+    //   trim: true,
+    // },
     skillCategory: {
-      type: String,
-      //   enum: Object.values(SkillCategory),
-      enum: [...Object.values(SkillCategory), ''],
-      default: '',
-      trim: true,
+      type: [String],
+      enum: Object.values(SkillCategory),
+      required: true,
     },
   },
   {

@@ -27,7 +27,7 @@ router.get('/categoryskill', SkillsControllers.getSkillsByCategory);
 
 
 // Technical skills data route
-router.get('/technical', SkillsControllers.getTechnicalSkills);
+// router.get('/technical', SkillsControllers.getTechnicalSkills);
 
 
 // Single skill data get Route

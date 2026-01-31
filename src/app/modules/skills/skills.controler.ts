@@ -1,8 +1,5 @@
 
 
-
-
-
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from 'http-status';
@@ -51,17 +48,17 @@ const getSkillsByCategory = catchAsync(async (req, res) => {
 
 
 // Technical skills data
-const getTechnicalSkills = catchAsync(async (req, res) => {
+// const getTechnicalSkills = catchAsync(async (req, res) => {
 
-    const result = await skillService.getTechnicalSkillFromDB();
+//     const result = await skillService.getTechnicalSkillFromDB();
 
-    sendResponse(res, {
-        statusCode: httpStatus.OK,
-        success: true,
-        message: 'Technical Skills fetched successfully',
-        data: result,
-    });
-});
+//     sendResponse(res, {
+//         statusCode: httpStatus.OK,
+//         success: true,
+//         message: 'Technical Skills fetched successfully',
+//         data: result,
+//     });
+// });
 
 
 // Get Single Skill
@@ -113,7 +110,7 @@ export const SkillsControllers = {
     getAllSkills,
     // getSoftSkills,
     getSkillsByCategory,
-    getTechnicalSkills,
+    // getTechnicalSkills,
     updateSkill,
     deleteSkill,
     getSingleSkill

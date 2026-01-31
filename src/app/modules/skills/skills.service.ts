@@ -45,17 +45,11 @@ const getAllSkillFromDB = async (query: Record<string, unknown>) => {
   }
 }
 
-// get Soft Skils
-// const getSoftSkillFromDB = async () => {
-//   const result = await Skills.find({ skillCategory: 'Soft' }).sort({
-//     createdAt: -1,
-//   })
-//   return result
-// }
-
+// get skills by category
 const getSkillsByCategoryFromDB = async () => {
   const result = await Skills.aggregate([
-    // 🔥 STEP 1: sort individual documents first
+    { $unwind: '$skillCategory' },
+
     {
       $sort: {
         pPinned: -1,
@@ -64,7 +58,6 @@ const getSkillsByCategoryFromDB = async () => {
       },
     },
 
-    // 🔥 STEP 2: group after sorting
     {
       $group: {
         _id: '$skillCategory',
@@ -73,7 +66,6 @@ const getSkillsByCategoryFromDB = async () => {
       },
     },
 
-    // 🔥 STEP 3: reshape output
     {
       $project: {
         _id: 0,
@@ -82,25 +74,18 @@ const getSkillsByCategoryFromDB = async () => {
         skills: 1,
       },
     },
-
-    // 🔥 STEP 4: optional category order
-    {
-      $sort: {
-        category: 1,
-      },
-    },
   ])
 
   return result
 }
 
 // get Technical Skils
-const getTechnicalSkillFromDB = async () => {
-  const result = await Skills.find({ skillCategory: 'Technical' }).sort({
-    createdAt: -1,
-  })
-  return result
-}
+// const getTechnicalSkillFromDB = async () => {
+//   const result = await Skills.find({ skillCategory: 'Technical' }).sort({
+//     createdAt: -1,
+//   })
+//   return result
+// }
 
 // Get Single skills
 const getSingleSkillsFromDB = async (id: string) => {
@@ -146,5 +131,5 @@ export const skillService = {
   getSingleSkillsFromDB,
   // getSoftSkillFromDB,
   getSkillsByCategoryFromDB,
-  getTechnicalSkillFromDB,
+  // getTechnicalSkillFromDB,
 }

@@ -24,7 +24,7 @@ export type TSkills = {
   description?: string
   image?: string
   pPinned: boolean
-  skillCategory?: TSkillCategory
+  skillCategory?: TSkillCategory[]
 }
 
 // export const SkillCategory = {

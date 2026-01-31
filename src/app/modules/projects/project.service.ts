@@ -27,17 +27,6 @@ const createProjectIntoDB = async (payload: TProjects) => {
 
 // Get all Project
 const getAllProjectFromDB = async (query: Record<string, unknown>) => {
-  // const projects = await Project.find().sort({
-  //   pPinned: -1,
-  //   updatedAt: -1,
-  //   createdAt: -1,
-  // })
-
-  // const totalProject = projects.length
-  // console.log(totalProject)
-
-  // return projects
-
   const projectQuery = new QueryBuilder(Project.find(), query)
     .search(ProjectSearchableFields)
     .filter()
@@ -52,11 +41,6 @@ const getAllProjectFromDB = async (query: Record<string, unknown>) => {
 
   const meta = await projectQuery.countTotal()
   const result = await projectQuery.modelQuery
-
-  // return {
-  //   TotalProject: totalProject,
-  //   projects,
-  // }
 
   return {
     meta,

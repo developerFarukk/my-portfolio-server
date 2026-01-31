@@ -1,10 +1,22 @@
 import { z } from 'zod'
-import { SkillCategory } from './skills.interface'
+// import { SkillCategory } from './skills.interface'
 
-const skillCategorySchema = z.union([
-  z.nativeEnum(SkillCategory),
-  z.literal(''),
+// const skillCategorySchema = z.union([
+//   z.nativeEnum(SkillCategory),
+//   z.literal(''),
+// ])
+
+const skillCategoryEnum = z.enum([
+  'Technical',
+  'Soft',
+  'Front-end',
+  'Backend',
+  'UI-Tools',
 ])
+
+const skillCategorySchema = z
+  .array(skillCategoryEnum)
+  .min(1, 'At least one skill category is required')
 
 // Create Skill validation
 // const createSkillValidation = z.object({
@@ -23,9 +35,9 @@ const createSkillValidation = z.object({
       required_error: 'Skill name is required',
     }),
 
-    title: z.string().max(500, "Description is too long").optional(),
+    title: z.string().max(500, 'Description is too long').optional(),
 
-    description: z.string().max(1000, "Description is too long").optional(),
+    description: z.string().max(1000, 'Description is too long').optional(),
 
     image: z
       .string()
@@ -33,7 +45,7 @@ const createSkillValidation = z.object({
       .optional()
       .or(z.literal('')),
 
-    skillCategory: skillCategorySchema.optional(),
+    skillCategory: skillCategorySchema,
   }),
 })
 
@@ -59,7 +71,7 @@ const updateSkillValidation = z.object({
 
     image: z.string().optional(),
 
-    skillCategory: skillCategorySchema.optional(),
+    skillCategory: skillCategorySchema,
   }),
 })
 
