@@ -111,16 +111,34 @@ const getSingleProjectFromDB = async (id: string) => {
 }
 
 // Update Project
-const updateProjectIntoDB = async (id: string, payload: Partial<TProject>) => {
-  const project = await Project.findById({ _id: id })
-
-  if (!project) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This project is not found !')
+const updateProjectIntoDB = async (id: string, payload: Partial<TProjects>) => {
+  if (!Object.keys(payload).length) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Update payload cannot be empty')
   }
 
-  const result = await Project.findOneAndUpdate({ _id: id }, payload, {
+  // 🔍 pName duplicate check (exclude current project)
+  if (payload.pName) {
+    const existingProject = await Project.findOne({
+      pName: payload.pName,
+      _id: { $ne: id },
+    })
+
+    if (existingProject) {
+      throw new AppError(
+        httpStatus.NOT_ACCEPTABLE,
+        'Project name already exists!'
+      )
+    }
+  }
+
+  const result = await Project.findByIdAndUpdate(id, payload, {
     new: true,
+    runValidators: true,
   })
+
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This project is not found!')
+  }
 
   return result
 }
