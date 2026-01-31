@@ -1,7 +1,7 @@
 import QueryBuilder from '../../builder/QueryBuilder'
 import AppError from '../../errors/AppError'
 import { ProjectSearchableFields } from './project.constant'
-import { TProject, TProjects } from './project.interface'
+import { TProjects } from './project.interface'
 import { Project } from './project.model'
 import httpStatus from 'http-status'
 
@@ -145,14 +145,13 @@ const updateProjectIntoDB = async (id: string, payload: Partial<TProjects>) => {
 
 // Delete Project
 const deleteProjectFromDB = async (id: string) => {
-  const project = await Project.findById(id)
+  // const result = await Project.findByIdAndDelete(id)
+  const result = await Project.findByIdAndDelete(id)
 
-  // Check Project Exist
-  if (!project) {
-    throw new Error('This project not found !')
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This project is not found!')
   }
 
-  const result = Project.findByIdAndDelete(id)
   return result
 }
 
