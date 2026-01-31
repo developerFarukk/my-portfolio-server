@@ -23,7 +23,7 @@ router.get('/', SkillsControllers.getAllSkills);
 
 
 // Soft skills data route
-router.get('/soft', SkillsControllers.getSoftSkills);
+router.get('/categoryskill', SkillsControllers.getSkillsByCategory);
 
 
 // Technical skills data route

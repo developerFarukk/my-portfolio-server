@@ -1,4 +1,6 @@
+import QueryBuilder from '../../builder/QueryBuilder'
 import AppError from '../../errors/AppError'
+import { SkillsSearchableFields } from './skills.constant'
 import { TSkills } from './skills.interface'
 import { Skills } from './skills.model'
 import httpStatus from 'http-status'
@@ -21,18 +23,74 @@ const createSkillsIntoDB = async (payload: TSkills) => {
 }
 
 // Get All Skill
-const getAllSkillFromDB = async () => {
-  // Execute the query
-  const result = Skills.find().sort({ createdAt: -1 })
+const getAllSkillFromDB = async (query: Record<string, unknown>) => {
+  const skillsQuery = new QueryBuilder(Skills.find(), query)
+    .search(SkillsSearchableFields)
+    .filter()
+    // .sort()
+    .sort({
+      pPinned: -1,
+      updatedAt: -1,
+      createdAt: -1,
+    })
+    .paginate()
+    .fields()
 
-  return result
+  const meta = await skillsQuery.countTotal()
+  const result = await skillsQuery.modelQuery
+
+  return {
+    meta,
+    result,
+  }
 }
 
 // get Soft Skils
-const getSoftSkillFromDB = async () => {
-  const result = await Skills.find({ skillCategory: 'Soft' }).sort({
-    createdAt: -1,
-  })
+// const getSoftSkillFromDB = async () => {
+//   const result = await Skills.find({ skillCategory: 'Soft' }).sort({
+//     createdAt: -1,
+//   })
+//   return result
+// }
+
+const getSkillsByCategoryFromDB = async () => {
+  const result = await Skills.aggregate([
+    // 🔥 STEP 1: sort individual documents first
+    {
+      $sort: {
+        pPinned: -1,
+        updatedAt: -1,
+        createdAt: -1,
+      },
+    },
+
+    // 🔥 STEP 2: group after sorting
+    {
+      $group: {
+        _id: '$skillCategory',
+        count: { $sum: 1 },
+        skills: { $push: '$$ROOT' },
+      },
+    },
+
+    // 🔥 STEP 3: reshape output
+    {
+      $project: {
+        _id: 0,
+        category: '$_id',
+        count: 1,
+        skills: 1,
+      },
+    },
+
+    // 🔥 STEP 4: optional category order
+    {
+      $sort: {
+        category: 1,
+      },
+    },
+  ])
+
   return result
 }
 
@@ -86,6 +144,7 @@ export const skillService = {
   updateSkillsIntoDB,
   deleteSkillFromDB,
   getSingleSkillsFromDB,
-  getSoftSkillFromDB,
+  // getSoftSkillFromDB,
+  getSkillsByCategoryFromDB,
   getTechnicalSkillFromDB,
 }

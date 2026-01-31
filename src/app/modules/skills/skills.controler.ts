@@ -37,14 +37,14 @@ const getAllSkills = catchAsync(async (req, res) => {
 
 
 // Soft skills data
-const getSoftSkills = catchAsync(async (req, res) => {
+const getSkillsByCategory = catchAsync(async (req, res) => {
 
-    const result = await skillService.getSoftSkillFromDB();
+    const result = await skillService.getSkillsByCategoryFromDB();
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
-        message: 'Soft Skills fetched successfully',
+        message: 'Category Skills fetched successfully',
         data: result,
     });
 });
@@ -111,7 +111,8 @@ const deleteSkill = catchAsync(async (req, res) => {
 export const SkillsControllers = {
     createSkill,
     getAllSkills,
-    getSoftSkills,
+    // getSoftSkills,
+    getSkillsByCategory,
     getTechnicalSkills,
     updateSkill,
     deleteSkill,

@@ -22,6 +22,10 @@ const skillSchema = new Schema<TSkills>(
       type: String,
       default: '',
     },
+    pPinned: {
+      type: Boolean,
+      default: false,
+    },
     skillCategory: {
       type: String,
       //   enum: Object.values(SkillCategory),

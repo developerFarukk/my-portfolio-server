@@ -23,6 +23,7 @@ export type TSkills = {
   title?: string
   description?: string
   image?: string
+  pPinned: boolean
   skillCategory?: TSkillCategory
 }
 
