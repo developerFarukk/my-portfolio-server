@@ -22,7 +22,7 @@ const skillSchema = new Schema<TSkills>(
       type: String,
       default: '',
     },
-    pPinned: {
+    sPinned: {
       type: Boolean,
       default: false,
     },
