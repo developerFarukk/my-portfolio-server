@@ -27,6 +27,18 @@ const getAllProject = catchAsync(async (req, res) => {
   })
 })
 
+// All project data get by cateory
+const getAllProjectByCategory = catchAsync(async (req, res) => {
+  const result = await projectService.getProjectsCategoryFromDB()
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project by category fetched successfully',
+    data: result,
+  })
+})
+
 // Get Single Project
 const getSingleProject = catchAsync(async (req, res) => {
   const { id } = req.params
@@ -74,4 +86,5 @@ export const ProjectControllers = {
   updateProject,
   deleteProject,
   getSingleProject,
+  getAllProjectByCategory,
 }

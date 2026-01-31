@@ -64,6 +64,39 @@ const getAllProjectFromDB = async (query: Record<string, unknown>) => {
   }
 }
 
+// get project whit category data
+const getProjectsCategoryFromDB = async () => {
+  const result = await Project.aggregate([
+    // {
+    //   $match: {
+    //     pVisibility: 'Public', // optional
+    //   },
+    // },
+    {
+      $sort: {
+        pPinned: -1,
+        updatedAt: -1,
+        createdAt: -1,
+      },
+    },
+    {
+      $group: {
+        _id: '$pCategory',
+        projects: { $push: '$$ROOT' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        category: '$_id',
+        projects: 1,
+      },
+    },
+  ])
+
+  return result
+}
+
 // Get Single Project
 const getSingleProjectFromDB = async (id: string) => {
   const project = await Project.findById({ _id: id })
@@ -111,4 +144,5 @@ export const projectService = {
   updateProjectIntoDB,
   deleteProjectFromDB,
   getSingleProjectFromDB,
+  getProjectsCategoryFromDB,
 }
