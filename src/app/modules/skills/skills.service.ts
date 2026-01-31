@@ -79,21 +79,12 @@ const getSkillsByCategoryFromDB = async () => {
   return result
 }
 
-// get Technical Skils
-// const getTechnicalSkillFromDB = async () => {
-//   const result = await Skills.find({ skillCategory: 'Technical' }).sort({
-//     createdAt: -1,
-//   })
-//   return result
-// }
-
 // Get Single skills
 const getSingleSkillsFromDB = async (id: string) => {
-  const skill = await Skills.findById(id)
+  const skill = await Skills.findById({ _id: id })
 
-  // Check skill Exist
   if (!skill) {
-    throw new Error('This skill not found !')
+    throw new AppError(httpStatus.NOT_FOUND, 'This skill is not found !')
   }
 
   const result = await Skills.findById(id)
@@ -103,23 +94,44 @@ const getSingleSkillsFromDB = async (id: string) => {
 
 // Update skills Data
 const updateSkillsIntoDB = async (id: string, payload: Partial<TSkills>) => {
-  const result = await Skills.findOneAndUpdate({ _id: id }, payload, {
+  if (!Object.keys(payload).length) {
+    throw new AppError(httpStatus.BAD_REQUEST, 'Update payload cannot be empty')
+  }
+
+  if (payload.name) {
+    const existingProject = await Skills.findOne({
+      pName: payload.name,
+      _id: { $ne: id },
+    })
+
+    if (existingProject) {
+      throw new AppError(
+        httpStatus.NOT_ACCEPTABLE,
+        'Skill name already exists!'
+      )
+    }
+  }
+
+  const result = await Skills.findByIdAndUpdate(id, payload, {
     new: true,
+    runValidators: true,
   })
+
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This skill is not found!')
+  }
 
   return result
 }
 
 // Delete skills
 const deleteSkillFromDB = async (id: string) => {
-  const skill = await Skills.findById(id)
+  const result = await Skills.findByIdAndDelete(id)
 
   // Check skills Exist
-  if (!skill) {
-    throw new Error('This skill not found !')
+  if (!result) {
+    throw new AppError(httpStatus.NOT_FOUND, 'This skill is not found!')
   }
-
-  const result = Skills.findByIdAndDelete(id)
   return result
 }
 
@@ -129,7 +141,5 @@ export const skillService = {
   updateSkillsIntoDB,
   deleteSkillFromDB,
   getSingleSkillsFromDB,
-  // getSoftSkillFromDB,
   getSkillsByCategoryFromDB,
-  // getTechnicalSkillFromDB,
 }
