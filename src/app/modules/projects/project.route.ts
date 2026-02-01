@@ -33,6 +33,6 @@ router.patch(
 )
 
 // Delete Project Route
-router.delete('/:id', auth(USER_ROLE.admin), ProjectControllers.deleteProject)
+router.delete('/delete/:id', auth(USER_ROLE.admin), ProjectControllers.deleteProject)
 
 export const ProjectRoutes = router
