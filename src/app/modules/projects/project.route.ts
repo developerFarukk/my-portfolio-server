@@ -26,7 +26,7 @@ router.get('/:id', ProjectControllers.getSingleProject)
 
 // Update Project Route
 router.patch(
-  '/:id',
+  '/update/:id',
   auth(USER_ROLE.admin),
   validateRequest(ProjectValidation.updateProjectValidation),
   ProjectControllers.updateProject
