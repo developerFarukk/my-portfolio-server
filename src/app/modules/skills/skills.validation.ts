@@ -18,6 +18,11 @@ const skillCategorySchema = z
   .array(skillCategoryEnum)
   .min(1, 'At least one skill category is required')
 
+
+const updateSkillCategorySchema = z
+  .array(skillCategoryEnum)
+  .optional()
+
 // Create Skill validation
 // const createSkillValidation = z.object({
 //     body: z.object({
@@ -71,7 +76,7 @@ const updateSkillValidation = z.object({
 
     image: z.string().optional(),
 
-    skillCategory: skillCategorySchema,
+    skillCategory: updateSkillCategorySchema,
   }),
 })
 
