@@ -36,7 +36,7 @@ router.get("/:id", SkillsControllers.getSingleSkill)
 
 // Update skill Route
 router.patch(
-    '/:id',
+    '/update/:id',
     auth(USER_ROLE.admin),
     validateRequest(SkillsValidation.updateSkillValidation),
     SkillsControllers.updateSkill,
@@ -44,7 +44,7 @@ router.patch(
 
 // Delete skill Route
 router.delete(
-    '/:id',
+    '/delete/:id',
     auth(USER_ROLE.admin),
     SkillsControllers.deleteSkill,
 );
