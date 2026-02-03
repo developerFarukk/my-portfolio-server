@@ -46,10 +46,10 @@ const getAllSkillFromDB = async (query: Record<string, unknown>) => {
 }
 
 // get skills by category
-const getSkillsByCategoryFromDB = async () => {
-  const result = await Skills.aggregate([
+export const getSkillsByCategoryFromDB = async () => {
+  // Fetch category-wise aggregation
+  const categoryWisePromise = Skills.aggregate([
     { $unwind: '$skillCategory' },
-
     {
       $sort: {
         pPinned: -1,
@@ -57,7 +57,6 @@ const getSkillsByCategoryFromDB = async () => {
         createdAt: -1,
       },
     },
-
     {
       $group: {
         _id: '$skillCategory',
@@ -65,7 +64,6 @@ const getSkillsByCategoryFromDB = async () => {
         skills: { $push: '$$ROOT' },
       },
     },
-
     {
       $project: {
         _id: 0,
@@ -76,7 +74,24 @@ const getSkillsByCategoryFromDB = async () => {
     },
   ])
 
-  return result
+  // Fetch all skills without grouping
+  const allSkillsPromise = Skills.find()
+    .sort({ pPinned: -1, updatedAt: -1, createdAt: -1 })
+    .lean()
+
+  // Run both queries in parallel
+  const [categoryWise, allSkills] = await Promise.all([
+    categoryWisePromise,
+    allSkillsPromise,
+  ])
+
+  return {
+    categoryWise,
+    allSkills: {
+      total: allSkills.length,
+      skills: allSkills,
+    },
+  }
 }
 
 // Get Single skills
