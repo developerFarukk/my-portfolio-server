@@ -22,7 +22,7 @@ const createSkill = catchAsync(async (req, res) => {
 // All skills data
 const getAllSkills = catchAsync(async (req, res) => {
 
-    const result = await skillService.getAllSkillFromDB();
+    const result = await skillService.getAllSkillFromDB(req.query);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
